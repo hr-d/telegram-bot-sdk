@@ -107,10 +107,11 @@ class TelegramClient
 
         $timeOut = $request->getTimeOut();
         $connectTimeOut = $request->getConnectTimeOut();
+        $proxy = $request->getProxy();
 
         $options = $this->getOptions($request, $method);
 
-        $rawResponse = $this->httpClientHandler->send($url, $method, $headers, $options, $timeOut, $isAsyncRequest, $connectTimeOut);
+        $rawResponse = $this->httpClientHandler->send($url, $method, $headers, $options, $timeOut, $isAsyncRequest, $connectTimeOut, $proxy);
 
         $returnResponse = $this->getResponse($request, $rawResponse);
 
