@@ -56,6 +56,13 @@ class TelegramRequest
     protected $timeOut = 30;
 
     /**
+     * Proxy of the request.
+     *
+     * @var string
+     */
+    protected $proxy = '';
+
+    /**
      * Connection timeout of the request in seconds.
      *
      * @var int
@@ -72,6 +79,7 @@ class TelegramRequest
      * @param bool        $isAsyncRequest
      * @param int         $timeOut
      * @param int         $connectTimeOut
+     * @param string      $proxy
      */
     public function __construct(
         $accessToken = null,
@@ -80,7 +88,8 @@ class TelegramRequest
         array $params = [],
         $isAsyncRequest = false,
         $timeOut = 60,
-        $connectTimeOut = 10
+        $connectTimeOut = 10,
+        $proxy = ''
     ) {
         $this->setAccessToken($accessToken);
         $this->setMethod($method);
@@ -89,6 +98,7 @@ class TelegramRequest
         $this->setAsyncRequest($isAsyncRequest);
         $this->setTimeOut($timeOut);
         $this->setConnectTimeOut($connectTimeOut);
+        $this->setProxy($proxy);
     }
 
     /**
@@ -328,6 +338,18 @@ class TelegramRequest
     public function setConnectTimeOut($connectTimeOut)
     {
         $this->connectTimeOut = $connectTimeOut;
+
+        return $this;
+    }
+
+    /**
+     * @param string $proxy
+     *
+     * @return $this
+     */
+    public function setProxy($proxy)
+    {
+        $this->proxy = $proxy;
 
         return $this;
     }

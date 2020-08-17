@@ -15,6 +15,7 @@ interface HttpClientInterface
      * @param int        $timeOut
      * @param bool|false $isAsyncRequest
      * @param int        $connectTimeOut
+     * @param string     $proxy
      *
      * @return mixed
      */
@@ -25,6 +26,7 @@ interface HttpClientInterface
         array $options = [],
         $timeOut = 30,
         $isAsyncRequest = false,
-        $connectTimeOut = 10
+        $connectTimeOut = 10,
+        $proxy = ''
     );
 }

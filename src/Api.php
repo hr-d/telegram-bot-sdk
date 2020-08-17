@@ -77,6 +77,13 @@ class Api
     protected $timeOut = 60;
 
     /**
+     * Proxy of the request.
+     *
+     * @var string
+     */
+    protected $proxy = '';
+
+    /**
      * Connection timeout of the request in seconds.
      *
      * @var int
@@ -1533,7 +1540,8 @@ class Api
             $params,
             $this->isAsyncRequest(),
             $this->getTimeOut(),
-            $this->getConnectTimeOut()
+            $this->getConnectTimeOut(),
+            $this->getProxy()
         );
     }
 
@@ -1619,6 +1627,26 @@ class Api
     public function setTimeOut($timeOut)
     {
         $this->timeOut = $timeOut;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProxy()
+    {
+        return $this->proxy;
+    }
+
+    /**
+     * @param string $proxy
+     *
+     * @return $this
+     */
+    public function setProxy($proxy)
+    {
+        $this->proxy = $proxy;
 
         return $this;
     }

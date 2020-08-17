@@ -42,6 +42,13 @@ class GuzzleHttpClient implements HttpClientInterface
     protected $connectTimeOut = 10;
 
     /**
+     * Proxy of the request.
+     *
+     * @var string
+     */
+    protected $proxy = '';
+
+    /**
      * @param Client|null $client
      */
     public function __construct(Client $client = null)
@@ -91,13 +98,15 @@ class GuzzleHttpClient implements HttpClientInterface
         array $options = [],
         $timeOut = 30,
         $isAsyncRequest = false,
-        $connectTimeOut = 10
+        $connectTimeOut = 10,
+        $proxy = ''
     ) {
         $this->timeOut = $timeOut;
         $this->connectTimeOut = $connectTimeOut;
+        $this->proxy = $proxy;
 
         $body = isset($options['body']) ? $options['body'] : null;
-        $options = $this->getOptions($headers, $body, $options, $timeOut, $isAsyncRequest, $connectTimeOut);
+        $options = $this->getOptions($headers, $body, $options, $timeOut, $isAsyncRequest, $connectTimeOut, $proxy);
 
         try {
             $response = $this->getClient()->requestAsync($method, $url, $options);
@@ -121,22 +130,24 @@ class GuzzleHttpClient implements HttpClientInterface
     /**
      * Prepares and returns request options.
      *
-     * @param array $headers
-     * @param       $body
-     * @param       $options
-     * @param       $timeOut
-     * @param       $isAsyncRequest
-     * @param int   $connectTimeOut
+     * @param array  $headers
+     * @param        $body
+     * @param        $options
+     * @param        $timeOut
+     * @param        $isAsyncRequest
+     * @param int    $connectTimeOut
+     * @param string $proxy
      *
      * @return array
      */
-    private function getOptions(array $headers, $body, $options, $timeOut, $isAsyncRequest = false, $connectTimeOut = 10)
+    private function getOptions(array $headers, $body, $options, $timeOut, $isAsyncRequest = false, $connectTimeOut = 10, $proxy = '')
     {
         $default_options = [
             RequestOptions::HEADERS         => $headers,
             RequestOptions::BODY            => $body,
             RequestOptions::TIMEOUT         => $timeOut,
             RequestOptions::CONNECT_TIMEOUT => $connectTimeOut,
+            RequestOptions::PROXY           => $proxy,
             RequestOptions::SYNCHRONOUS     => !$isAsyncRequest,
         ];
 
@@ -149,6 +160,14 @@ class GuzzleHttpClient implements HttpClientInterface
     public function getTimeOut()
     {
         return $this->timeOut;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProxy()
+    {
+        return $this->proxy;
     }
 
     /**
