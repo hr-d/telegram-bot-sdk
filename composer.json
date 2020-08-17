@@ -4,7 +4,7 @@
   "keywords": ["telegram", "telegram bot", "telegram bot api", "telegram sdk", "telegram php", "laravel telegram", "laravel"],
   "type": "library",
   "homepage": "https://github.com/hr-d/telegram-bot-sdk",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
     "repositories": [
         {
             "type": "vcs",
